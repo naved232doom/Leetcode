@@ -1,29 +1,23 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        // -2 3 4 -2
-        int ans=INT_MIN;
-            int l=0,r=0;
+         // if we have even negative numbers -> good
+            // if we have a zero then prod=1
+            // we want to find the max as well as the min product here
             int n=(int)(nums.size());
-            int cur=1;
-            // 101 5 2 6 k= 100
-            // l =1,r =0
-            // 
-            int maxhere=nums[0],minhere=nums[0];
-            ans=max(ans,maxhere);
-        for(int i=1;i<n;++i){
-            if(nums[i]>=0){
-                    maxhere=max(maxhere*nums[i],nums[i]);
-                    minhere=min(minhere*nums[i],nums[i]);
-            }
-                else{   
-                        int temp=maxhere;
-                        maxhere=max(minhere*nums[i],nums[i]);
-                        minhere=min(temp*nums[i],nums[i]);
-                }
-                ans=max(ans,maxhere);
-        }   
+        int P=1,ans=INT_MIN;
             
+            for(int i=0;i<n;++i){
+                    P*=nums[i];
+                    ans=max(ans,P);
+                    if(nums[i]==0) P=1;
+            }
+            P=1;
+            for(int i=n-1;i;--i){
+                    P*=nums[i];
+                    ans=max(ans,P);
+                    if(nums[i]==0) P=1;
+            }
             return ans;
     }
 };
