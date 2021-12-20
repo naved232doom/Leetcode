@@ -1,6 +1,14 @@
 class Solution {
         private:
         typedef pair<int,int> pii;
+        vector<int> getPath(vector<int> &parent,int u){
+                vector<int> path;
+                while(u!=-1){
+                        path.push_back(u);
+                        u=parent[u];
+                }
+                return path;
+        }
 int bfs(vector<vector<int>> &adj,int n,int start){
        vector<int> dist(n,INT_MAX);    
         priority_queue<pii,vector<pii>,greater<pii>> q;
@@ -57,12 +65,13 @@ public:
             vector<int> parent(n,-1);
             tracePath(diameterEnd2,-1,diameterEnd1,adj,parent);
             vector<int> path;
-    int s=diameterEnd2;
+        int s=diameterEnd2;
+            path=getPath(parent,s);
             //cout<<diameterEnd1<<" "<<diameterEnd2<<"\n";
-            while(s!=-1){
-                    path.push_back(s);
-                    s=parent[s];
-            }
+            // while(s!=-1){
+            //         path.push_back(s);
+            //         s=parent[s];
+            // }
             // for(int v:path){
             //         cout<<v<<" ";
             // }
