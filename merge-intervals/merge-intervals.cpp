@@ -1,29 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end());
+        int n=(int)(intervals.size());
             vector<vector<int>> ans;
-            int n=(int)(intervals.size());
-            int lb=intervals[0][0],rb=intervals[0][1];
-            for(int i=1;i<n;++i){
-                    int nl=intervals[i][0],nr=intervals[i][1];
-                    if(nl<=rb){
-                            rb=max(rb,nr);
-                    }
+            sort(intervals.begin(),intervals.end(),[](vector<int> &A,vector<int> &B){
+                    return A[0]<B[0];
+            });
+           int cur_interval_start=intervals[0][0],cur_interval_end=intervals[0][1];
+           for(int i=1;i<n;++i){
+                int interval_start=intervals[i][0],interval_end=intervals[i][1];
+                if(cur_interval_end>=interval_start){
+                        cur_interval_end=max(cur_interval_end,interval_end);
+                        cur_interval_start=min(cur_interval_start,interval_start);
+                }
                     else{
-                            vector<int> cur;
-                            cur.push_back(lb);
-                            cur.push_back(rb);
-                            ans.push_back(cur);
-                            lb=nl,rb=nr;
+                            ans.push_back({cur_interval_start,cur_interval_end});
+                            cur_interval_start=interval_start;
+                            cur_interval_end=interval_end;
                     }
             }
-             vector<int> cur;
-                            cur.push_back(lb);
-                            cur.push_back(rb);
-                            ans.push_back(cur);
-                            
             
+            ans.push_back({cur_interval_start,cur_interval_end});
             return ans;
     }
 };
