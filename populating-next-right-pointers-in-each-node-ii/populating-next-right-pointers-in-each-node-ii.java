@@ -7,7 +7,7 @@ class Node {
     public Node next;
 
     public Node() {}
-    
+
     public Node(int _val) {
         val = _val;
     }
@@ -22,27 +22,27 @@ class Node {
 */
 
 class Solution {
-        public void bfs(Node root){
-                if(root==null) return;
-                Node tmp_root=root;
-                        Node dummy= new Node(-200);
-                while(tmp_root!=null){
-                        if(tmp_root.left!=null){
-                                dummy.next=tmp_root.left;
-                                dummy=dummy.next;
-                        }
-                        if(tmp_root.right!=null){
-                                dummy.next=tmp_root.right;
-                                dummy=dummy.next;
-                        }
-                        
-                        tmp_root=tmp_root.next;
-                }
-                bfs(root.left);
-                bfs(root.right);
+    public void bfs(Node root) {
+        if (root == null) return;
+        Node tmp_root = root;
+        Node dummy = new Node(-200);
+        while (tmp_root != null) {
+            if (tmp_root.left != null) {
+                dummy.next = tmp_root.left;
+                dummy = dummy.next;
+            }
+            if (tmp_root.right != null) {
+                dummy.next = tmp_root.right;
+                dummy = dummy.next;
+            }
+
+            tmp_root = tmp_root.next;
         }
+        bfs(root.left);
+        bfs(root.right);
+    }
     public Node connect(Node root) {
         bfs(root);
-            return root;
+        return root;
     }
 }
