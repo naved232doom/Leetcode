@@ -1,11 +1,27 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        vector<int> f(3);
-            int n=(int)(nums.size());
-            for(int i=0;i<n;++i) f[nums[i]]++;
-                vector<int> ans;
-            for(int i=0;i<3;++i) for(int j=0;j<(int)(f[i]);++j) ans.push_back(i);
-           nums=ans;
+        int n = (int)(nums.size());
+        int left, mid, right;
+        left = mid = 0;
+        right = n - 1;
+        // 2  0 2 1 1 0
+        //L,M          H
+        // 0  0 1 1 2 2
+        //    L  H,M
+        //
+        while (mid <= right) {
+            if (nums[mid] == 0) {
+                swap(nums[mid], nums[left]);
+                mid++;
+                left++;
+            }
+            else if (nums[mid] == 2) {
+                swap(nums[mid], nums[right]);
+                right--;
+            }
+            else mid++;
+
+        }
     }
 };
