@@ -12,7 +12,7 @@ private:
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
         int n = (piles.size());
-        int lb = 1, rb = *max_element(piles.begin(), piles.end()) + 1;
+        int lb = 1, rb = *max_element(piles.begin(), piles.end()) ;
         while (lb < rb) {
             int mid = lb + (rb - lb) / 2;
             if (possible(piles, mid, h)) {
