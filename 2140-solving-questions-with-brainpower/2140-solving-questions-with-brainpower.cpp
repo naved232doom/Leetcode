@@ -1,5 +1,5 @@
 class Solution {
-    typedef long long ll;
+    typedef long long int ll;
 public:
     long long mostPoints(vector<vector<int>>& questions) {
         int n = (int)questions.size();
