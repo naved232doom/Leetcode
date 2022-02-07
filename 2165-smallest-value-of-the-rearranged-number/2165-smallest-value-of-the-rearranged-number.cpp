@@ -43,7 +43,7 @@ public:
         
                 long long ans;
             if(num>=0) return get_ans_positive(num);
-            else get_ans_negative(num);
+            else return get_ans_negative(num);
             //cout<<ans<<"\n";
             return ans;
             
