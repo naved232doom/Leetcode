@@ -1,47 +1,34 @@
 class Solution {
 public:
-    int shortestPathLength(vector<vector<int>>& adj) {
-        int n = (int)(adj.size());
-        const int inf = 1e9;
-        vector<vector<int>> dp((1 << (n + 1)), vector<int>(n, inf));
-        // dp[mask][i] shortest path spannning mask and ending at i
-        int ans = inf;
-        vector<vector<int>> dist(n, vector<int>(n, inf));
-        for (int i = 0; i < n; ++i) dist[i][i] = 0;
-        for (int i = 0; i < n; ++i) {
-            for (int v : adj[i]) dist[i][v] = dist[v][i] = 1;
-        }
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                for (int k = 0; k < n; ++k) {
-                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
-                }
+    int shortestPathLength(vector<vector<int>>& graph) {
+        int n=(int)(graph.size());
+            const int inf=1e9;
+            queue<array<int,3>> q;
+            for(int i=0;i<n;++i){
+                    q.push({(1<<i),i,0});
             }
-        }
-
-        for (int i = 0; i < n; ++i) dp[1 << (i)][i] = 0;
-        for (int mask = 0; mask < (1 << n); ++mask) {
-            for (int i = 0; i < n; ++i) {
-                //if(dp[mask][i]==inf) continue;
-                if (mask & (1 << i)) {
-                    for (int j = 0; j < n; ++j) {
-                        if (i == j) continue;
-                        dp[mask | (1 << j)][j] = min(dp[mask | (1 << j)][j], dp[mask][i] + dist[i][j]);
+            int visited[1<<n][n];
+            memset(visited,0,sizeof visited);
+            int ans=inf;
+            while(!q.empty()){
+                    auto cur=q.front();
+                    auto mask_here=cur[0];
+                    auto node_here=cur[1];
+                    auto dist_here=cur[2];
+                    q.pop();
+                    if(mask_here==(1<<n)-1){
+                            ans=min(ans,dist_here);
+                            continue;
                     }
-                }
-
+                    for(int v:graph[node_here]){
+                            int mask_now=(mask_here|1<<v);
+                            if(!visited[mask_now][v]){
+                                    visited[mask_now][v]=1;
+                                    q.push({mask_now,v,dist_here+1});
+                            }
+                    }
             }
-        }
-
-        for (int i = 0; i < n; ++i) {
-            ans = min(ans, dp[(1 << n) - 1][i]);
-        }
-        // for(int mask=0;mask<(1<<n);++mask){
-        //         for(int i=0;i<n;++i){
-        //                 cout<<mask<<" "<<i<<endl;
-        //                 cout<<dp[mask][i]<<endl;
-        //         }
-        // }
-        return ans;
+            
+            return ans;
     }
 };
