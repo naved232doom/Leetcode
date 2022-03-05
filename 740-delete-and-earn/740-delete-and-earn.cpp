@@ -2,10 +2,9 @@ class Solution {
 public:
     int deleteAndEarn(vector<int>& arr) {
         int n = (int)(arr.size());
-        const int N = 1e4 + 5;
-        vector<int> V(N);
-        for (int c : arr) V[c] += c;
-
+            map<int,int> V;
+            for(int a:arr) V[a]+=a;
+       int N=(*max_element(V.begin(),V.end())).first+1;
         vector<array<int, 2>> dp(N);
         int ans = 0;
         for (int i = 1; i < N; ++i) {
