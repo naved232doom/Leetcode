@@ -5,15 +5,16 @@ public:
         int n=(int)(nums.size());
         map<int,int> f;
         for(int i=0;i<n;++i) f[nums[i]]++;
-        set<int> st(nums.begin(),nums.end());
-        vector<array<int,2>> p;
-        for(int v:st){
-            p.push_back({f[v],v});
+        vector<int> v[n+1];
+        for(auto e:f){
+            v[e.second].push_back(e.first);
         }
-        
-        sort(p.rbegin(),p.rend());
-        for(int i=0;i<k;++i) ans.push_back(p[i][1]);
-        
+        for(int i=n;i>=0&&((int)ans.size()<k);--i){
+            while(!v[i].empty()&&((int)(ans.size())<k)){
+                ans.push_back(v[i].back());
+                v[i].pop_back();
+            }
+        }
         return ans;
     }
 };
