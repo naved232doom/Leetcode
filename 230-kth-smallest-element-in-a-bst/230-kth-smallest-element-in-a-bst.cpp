@@ -12,7 +12,8 @@
 class Solution {
     private:
     void dfs(TreeNode* root,int &l,int &k,int &ans){
-        if(root==NULL) return;
+       
+        if(root==NULL||ans!=-1) return;
         dfs(root->left,l,k,ans);
         l++;
         if(l==k){
