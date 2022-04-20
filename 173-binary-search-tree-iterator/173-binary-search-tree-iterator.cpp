@@ -11,13 +11,13 @@
  */
 class BSTIterator {
     private:
-    TreeNode* prev=new TreeNode(-1);
-    vector<int> vals;
+   
+    vector<TreeNode*> vals;
     void dfs(TreeNode* root){
         if(root==NULL) return;
+        vals.push_back(root);
         dfs(root->left);
-        vals.push_back(root->val);
-        dfs(root->right);
+        
     }
     int idx=0;
     public:
@@ -28,11 +28,14 @@ class BSTIterator {
     }
     
     int next() {
-       return vals[idx++];
+        auto node=(vals.back());
+       vals.pop_back();
+        dfs(node->right);
+        return node->val;
     }
     
     bool hasNext() {
-        return idx<(int)(vals.size());
+        return !vals.empty();
     }
 };
 
