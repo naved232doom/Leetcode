@@ -32,7 +32,7 @@ public:
             for(int j=0;j<m;++j){
                 for(int k=0;k<4;++k){
                     int nx=i+dx[k],ny=j+dy[k];
-                    if(valid(nx,ny,n,m)&&g[nx][ny]>g[i][j]){
+                    if(valid(nx,ny,n,m)&&g[nx][ny]<g[i][j]){
                         adj[i*m+j].push_back(nx*m+ny);
                     }
                 }
