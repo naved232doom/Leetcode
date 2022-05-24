@@ -2,6 +2,7 @@ class Solution {
 public:
     int longestValidParentheses(string s) {
         int ans=0;
+        s=')'+s;
         int n=s.length();
         vector<int> dp(n+1,0);
         int open_cnt=0;
