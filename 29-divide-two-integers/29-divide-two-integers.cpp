@@ -4,8 +4,8 @@ public:
     int divide(ll dividend, ll divisor) {
         if(dividend==INT_MIN && divisor==-1) return INT_MAX;
         bool neg=0;
-        if(dividend > (1ll<<31)-1) return ((1ll<<31)-1);
-        if(dividend < -(1ll<<31)) return (-(1ll<<31));
+        // if(dividend > (1ll<<31)-1) return ((1ll<<31)-1);
+        // if(dividend < -(1ll<<31)) return (-(1ll<<31));
         if(dividend<0 && divisor>0) neg=1;
         if(dividend>0 && divisor<0) neg=1;
         dividend=(ll)abs(dividend);
