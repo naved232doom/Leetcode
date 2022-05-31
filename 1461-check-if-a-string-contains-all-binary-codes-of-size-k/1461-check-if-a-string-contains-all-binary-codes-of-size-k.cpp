@@ -4,7 +4,7 @@ public:
         // all numbers from 0 to exp(2,k+1)-1
         int n=(int)(s.length());
         const int MAX=(1<<(k+1));
-        set<int> f;
+        unordered_set<int> f;
         
         for(int i=0,j=i+k-1;i<n&&j<n;++i,++j){
             int val_here=0;
