@@ -4,7 +4,7 @@ public:
         // all numbers from 0 to exp(2,k+1)-1
         int n=(int)(s.length());
         const int MAX=(1<<(k+1));
-        vector<int> f(MAX);
+        set<int> f;
         
         for(int i=0,j=i+k-1;i<n&&j<n;++i,++j){
             int val_here=0;
@@ -14,9 +14,10 @@ public:
                 }
             }
             assert(val_here<(MAX));
-            f[val_here]|=1;
+            if(f.find(val_here)!=f.end()) continue;
+            f.insert(val_here);
         }
-        int cnt= count(f.begin(),f.end(),1);
+        int cnt= (int)(f.size());
         //cout<<cnt<<endl;
         return cnt==(1<<k) ;
     }
