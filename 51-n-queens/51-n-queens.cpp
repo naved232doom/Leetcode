@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void dfs(vector<vector<string>> &ans, vector<int> r_c, vector<int> c_c, vector<string> g, int &n, set<int> mp, set<int> mp2, int r_here = 0) {
+    void dfs(vector<vector<string>> &ans, vector<int> r_c, vector<int> c_c, vector<string> g, int &n, map<int,int> mp, map<int,int> mp2, int r_here = 0) {
 
         if (r_here == n) {
             ans.push_back(g);
@@ -13,8 +13,8 @@ public:
             g[i][j] = 'Q';
 
             if (!mp.count(i - j) && !mp2.count(i + j)) {
-                mp.insert(i - j);
-                mp2.insert(i + j);
+                mp.insert({i - j,1});
+                mp2.insert({i + j,1});
                 dfs(ans, r_c, c_c, g, n, mp, mp2, r_here + 1);
                 mp.erase(i - j);
                 mp2.erase(i + j);
@@ -38,7 +38,7 @@ public:
             }
             g.push_back(h);
         }
-        set<int> mp, mp2;
+        map<int,int> mp, mp2;
         vector<vector<string>> ans;
         vector<int> r_c(n, -1), c_c(n, -1);
         dfs(ans, r_c, c_c, g, n, mp, mp2);
