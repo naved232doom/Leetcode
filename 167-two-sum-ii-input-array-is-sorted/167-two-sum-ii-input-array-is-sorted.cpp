@@ -3,8 +3,7 @@ public:
     vector<int> twoSum(vector<int>& arr, int t) {
         vector<int> ans;
         int n=(int)(arr.size());
-        for(int i=0;i<n;++i){
-            int l=i;
+            int l=0;
             int r=n-1;
             while(l<n&&r>=0&&l<r){
                 int sum_here=arr[l]+arr[r];
@@ -16,7 +15,6 @@ public:
                 }
                 else r--;
             }
-        }
         return ans;
     }
 };
