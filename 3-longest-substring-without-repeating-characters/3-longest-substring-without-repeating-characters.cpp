@@ -5,7 +5,7 @@ public:
         if(n<=1) return n;
         //return n;
         int ans=1;
-        const int MAX=128;
+        const int MAX=150;
         vector<int> f(MAX,-1);
         for(int i=0;i<n;++i){
             int c_here=s[i];
