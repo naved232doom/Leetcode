@@ -19,12 +19,10 @@ public:
             if (here > x) break;
             int rem = x - here;
             array<int, 2> f = {rem, 0};
-            auto it = lower_bound(p_suf.begin(), p_suf.end(), f);
+            auto it = lower_bound(p_suf.begin(), p_suf.begin()+n-i, f);
             if (it == p_suf.end()) continue;
             auto cur = *it;
             if (cur[0] != rem || i+ n-cur[1]>n) continue;
-            //cout<<i<<" "<<cur[1]<<" "<<endl;
-            
             ans = min(ans, i + n - cur[1]);
         }
 
