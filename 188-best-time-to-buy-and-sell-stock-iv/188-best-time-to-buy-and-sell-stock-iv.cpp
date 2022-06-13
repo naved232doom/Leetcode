@@ -16,9 +16,8 @@ public:
                 dp[i][k]=max(dp[i][k],prev_max+arr[i]);
                 if(i)
                 prev_max=max(prev_max,dp[i-1][k-1]-arr[i]);
-                ans=max(ans,dp[i][k]);
             }
         }
-        return ans;
+        return dp[n-1][K];
     }
 };
