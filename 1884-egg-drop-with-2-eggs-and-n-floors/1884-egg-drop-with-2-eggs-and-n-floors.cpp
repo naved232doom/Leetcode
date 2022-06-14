@@ -20,11 +20,14 @@ public:
     }
     int twoEggDrop(int n) {
         int K=2;
-        vector<vector<int>> dp(K+1,vector<int>(n+1,INF));
-        for(int i=1;i<=K;++i) dp[i][0]=0;
-        for(int i=1;i<=K;++i) dp[i][1]=1;
-        go(dp,n,K);
-
-        return dp[K][n];
+       int ans=0;
+        vector<vector<int>> dp(n+1,vector<int>(K+1));
+        while(dp[ans][K]< n){
+            ans++;
+            for(int i=1;i<=K;++i){
+                dp[ans][i]=dp[ans-1][i-1]+dp[ans-1][i]+1;
+            }
+        }
+        return ans;
     }
 };
