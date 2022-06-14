@@ -38,14 +38,15 @@ public:
         }
     }
     int solve(vector<int> &arr) {
-        bit bit;
-        int N = *(max_element(arr.begin(),arr.end()))+1;
+       map<int,int> mp;
         int n=(int)(arr.size());
-        bit.init(N + 1);
         vector<int> dp(n);
-        for (int i = n - 1; i >= 0; --i) {
-            dp[i] = bit.query(N + 1) - bit.query(arr[i]);
-            bit.add(arr[i], 1);
+        for(int i=n-1;i>=0;--i){
+            for(auto it:mp){
+                if(it.first<=arr[i]) continue;
+                dp[i]+=it.second;
+            }
+            mp[arr[i]]++;
         }
         int ans = 0;
         for (int i = 0; i < n; ++i) {
