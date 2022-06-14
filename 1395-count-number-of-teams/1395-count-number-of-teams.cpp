@@ -39,11 +39,12 @@ public:
     }
     int solve(vector<int> &arr) {
         bit bit;
-        int n = (int)(arr.size());
-        bit.init(n + 1);
+        int N = *(max_element(arr.begin(),arr.end()))+1;
+        int n=(int)(arr.size());
+        bit.init(N + 1);
         vector<int> dp(n);
         for (int i = n - 1; i >= 0; --i) {
-            dp[i] = bit.query(n + 1) - bit.query(arr[i]);
+            dp[i] = bit.query(N + 1) - bit.query(arr[i]);
             bit.add(arr[i], 1);
         }
         int ans = 0;
@@ -57,7 +58,7 @@ public:
     }
     int numTeams(vector<int>& arr) {
         int ans = 0;
-        coordinate_compression(arr);
+        //coordinate_compression(arr);
         ans += solve(arr);
         reverse(arr.begin(), arr.end());
         ans += solve(arr);
