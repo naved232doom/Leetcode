@@ -21,6 +21,9 @@ public:
         vector<int> dp(n,1);
         for(int i=0;i<n;++i){
             for(int j=i+1;j<n;++j){
+                if(words[j].length()!=1+words[i].length()) continue;
+                if(words[j].length()>1+words[i].length()) break;
+                
                 if(is_subs(words[i],words[j])){
                     dp[j]=max(dp[j],dp[i]+1);
                 }
