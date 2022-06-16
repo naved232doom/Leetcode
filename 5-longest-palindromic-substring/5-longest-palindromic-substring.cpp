@@ -1,6 +1,10 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
+        if(s.size()<=0)
+            return "";
+        if(s.size()==1)
+            return s;
         int n = (int)(s.size());
         vector<vector<int>> dp(n, vector<int>(n));
         for (int i = 0; i < n; ++i) dp[i][i] = 1;
