@@ -6,7 +6,7 @@ public:
     int idx = -1;
     TrieNode() {
         for (int i = 0; i < 27; ++i) {
-            next[i] = NULL;
+            next[i] = 0;
         }
         word_end = 0;
     }
@@ -29,13 +29,13 @@ public:
             p->idx = index;
             if (s[i] == '$') {
                 int here = 26;
-                if (p->next[26] == NULL) {
+                if (!p->next[26]) {
                     p->next[26] = new TrieNode();
                 }
                 p = p->next[26];
             }
             else {
-                if (p->next[s[i] - 'a'] == NULL) {
+                if (!p->next[s[i] - 'a']) {
                     p->next[s[i] - 'a'] = new TrieNode();
                 }
                 p = p->next[s[i] - 'a'];
@@ -48,7 +48,7 @@ public:
     int find(string s) {
         TrieNode* p = root;
         for (int i = 0; i < s.length(); ++i) {
-            if (p==NULL) return -1;
+            if (!p) return -1;
             if (s[i] == '$') {
                 p = p->next[26];
             }
