@@ -1,0 +1,72 @@
+class TrieNode {
+public:
+    int word_end=0;
+    TrieNode *next[26];
+
+    TrieNode() {
+        memset(next, NULL, sizeof next);
+    }
+};
+
+class Trie {
+public:
+    TrieNode *root;
+    Trie() {
+        root = new TrieNode();
+    }
+
+    void insert(string &s) {
+        TrieNode* node_here = root;
+        for (int i = 0; i < s.length(); ++i) {
+            if (!node_here->next[s[i] - 'a']) {
+                node_here->next[s[i] - 'a'] = new TrieNode();
+                //node_here->next[s[i] - 'a'] = 1;
+            }
+            node_here = node_here->next[s[i] - 'a'];
+        }
+        node_here->word_end = 1;
+    }
+    // should be recursive
+    bool find(string &s) {
+        TrieNode *root_here=root;
+        return search(s.c_str(), root_here);
+    }
+bool search(const char* word, TrieNode* node) {
+        for (int i = 0; word[i] && node; i++) {
+            if (word[i] != '.') {
+                node = node -> next[word[i] - 'a'];
+            } else {
+                TrieNode* tmp = node;
+                for (int j = 0; j < 26; j++) {
+                    node = tmp -> next[j];
+                    if (search(word + i + 1, node)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return node && node -> word_end;
+    }
+};
+class WordDictionary {
+public:
+    Trie node;
+    WordDictionary() {
+
+    }
+
+    void addWord(string word) {
+        node.insert(word);
+    }
+
+    bool search(string word) {
+        return node.find(word);
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
