@@ -27,26 +27,27 @@ public:
         node_here->word_end = 1;
     }
     // should be recursive
-    bool find(string &s) {
+    bool search(string &s) {
         TrieNode *root_here=root;
-        return search(s.c_str(), root_here);
+        return find(s, root_here);
     }
-bool search(const char* word, TrieNode* node) {
-        for (int i = 0; word[i] && node; i++) {
-            if (word[i] != '.') {
-                node = node -> next[word[i] - 'a'];
-            } else {
-                TrieNode* tmp = node;
-                for (int j = 0; j < 26; j++) {
-                    node = tmp -> next[j];
-                    if (search(word + i + 1, node)) {
-                        return true;
-                    }
+bool find(string &s, TrieNode *root_here, int idx = 0) {
+    for (int i = idx; i < s.length() && root_here; ++i) {
+        if (s[i] == '.') {
+                TrieNode* here=root_here;
+            for (int j = 0; j < 26; ++j) {
+                root_here=here->next[j];
+    if (find(s, root_here, i + 1) ) return true;
                 }
             }
+            else {
+                //if (!root_here->next[s[i] - 'a']) return false;
+                root_here = root_here->next[s[i] - 'a'];
+            }
         }
-        return node && node -> word_end;
+        return root_here&&root_here->word_end;
     }
+
 };
 class WordDictionary {
 public:
@@ -60,7 +61,7 @@ public:
     }
 
     bool search(string word) {
-        return node.find(word);
+        return node.search(word);
     }
 };
 
