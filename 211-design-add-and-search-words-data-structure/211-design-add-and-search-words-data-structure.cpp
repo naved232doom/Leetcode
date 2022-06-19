@@ -32,13 +32,16 @@ public:
         return find(s, root_here);
     }
 bool find(string &s, TrieNode *root_here, int idx = 0) {
+    if(idx==s.length()) return root_here&&root_here->word_end;
+    
     for (int i = idx; i < s.length() && root_here; ++i) {
         if (s[i] == '.') {
                 TrieNode* here=root_here;
             for (int j = 0; j < 26; ++j) {
-                root_here=here->next[j];
-    if (find(s, root_here, i + 1) ) return true;
+                //root_here=here->next[j];
+    if (root_here && find(s, root_here->next[j], i + 1) ) return true;
                 }
+            return false;
             }
             else {
                 //if (!root_here->next[s[i] - 'a']) return false;
