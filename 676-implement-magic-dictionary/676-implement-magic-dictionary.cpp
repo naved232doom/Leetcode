@@ -7,13 +7,14 @@ public:
         is_word = 0;
     }
 };
-class Trie {
+
+class MagicDictionary {
 public:
-    TrieNode *root;
-    Trie() {
+  TrieNode *root;
+    MagicDictionary() {
         root = new TrieNode();
     }
-
+    
     void insert(string &s) {
         TrieNode *here = root;
         for (int i = 0; i < s.length(); ++i) {
@@ -24,7 +25,7 @@ public:
         }
         here->is_word = 1;
     }
-    bool search(string &s) {
+    bool search2(string &s) {
         auto here=root;
         
         for(int i=0;i<s.length();++i){
@@ -42,30 +43,21 @@ public:
                 if(c_here==s[i]) continue;
                 char prev= s[i];
                 s[i]=c_here;
-                if(search(s)) return true;
+                if(search2(s)) return true;
                 s[i]=prev;
             }
         }
         return false;
        
     }
-};
-
-class MagicDictionary {
-public:
-    Trie trie;
-    MagicDictionary() {
-
-    }
-
     void buildDict(vector<string> dic) {
         for (string w : dic) {
-            trie.insert(w);
+            insert(w);
         }
     }
 
     bool search(string searchWord) {
-        return trie.find(searchWord);
+        return find(searchWord);
     }
 
 };
