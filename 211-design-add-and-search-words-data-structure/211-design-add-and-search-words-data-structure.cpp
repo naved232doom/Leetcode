@@ -44,7 +44,7 @@ bool find(string &s, TrieNode *root_here, int idx = 0) {
             return false;
             }
             else {
-                //if (!root_here->next[s[i] - 'a']) return false;
+                if (!root_here->next[s[i] - 'a']) return false;
                 root_here = root_here->next[s[i] - 'a'];
             }
         }
