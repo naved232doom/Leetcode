@@ -53,9 +53,9 @@ public:
         root=new TrieNode();
         int ans=0;
         int it=0;
-        sort(w.begin(),w.end(),[](string a,string b){
-            return a.length()<b.length();
-        });
+        // sort(w.begin(),w.end(),[](string a,string b){
+        //     return a.length()<b.length();
+        // });
         for(auto p:w){
             insert(p,it++);
         }
