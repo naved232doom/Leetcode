@@ -1,7 +1,7 @@
 class Solution {
 public:
     int scheduleCourse(vector<vector<int>>& C) {
-        sort(C.begin(),C.end(),[](vector<int> a,vector<int> b){
+        sort(C.begin(),C.end(),[](vector<int> &a,vector<int> &b){
             return a[1]<b[1];
         });
             int s_here=0;
