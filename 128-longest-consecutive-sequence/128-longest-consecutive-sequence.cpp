@@ -3,7 +3,7 @@ public:
     int longestConsecutive(vector<int>& arr) {
         int n=(int)(arr.size());
         if(n<=1) return n;
-        sort(arr.begin(),arr.end());
+        //sort(arr.begin(),arr.end());
         vector<vector<int>> adj(n);
         map<int,int> mp;
         for(int i=0;i<n;++i) mp[arr[i]]=i;
