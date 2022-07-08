@@ -18,23 +18,23 @@ public:
         //
         
         for (int i = 0; i <= m; ++i) dp[0][0][i] = 0;
-        if(H.front()==-1){
-            for(int c=0;c<m;++c){
-                dp[1][1][c]=cost[0][c];
-            }
-        }
-        else{
-            dp[1][1][H[0]]=cost[0][H[0]];
-        }
+        // if(H.front()==-1){
+        //     for(int c=0;c<m;++c){
+        //         dp[1][1][c]=cost[0][c];
+        //     }
+        // }
+        // else{
+        //     dp[1][1][H[0]]=cost[0][H[0]];
+        // }
      
         for (int i = 0; i < n; ++i) {
 
-            for (int j = 1; j <= T; ++j) {
+            for (int j = 0; j <= T; ++j) {
                 for (int k = 0; k < m; ++k) {
                     if (H[i] >= 0) {
                         if (k == H[i]) {
                     int j_here=max(j,1);
-    dp[i + 1][j][H[i]] = min(dp[i + 1][j][H[i]], dp[i][j][k] + cost[i][H[i]]);
+    dp[i + 1][j_here][H[i]] = min(dp[i + 1][j_here][H[i]], dp[i][j][k] + cost[i][H[i]]);
                         }
                         else if(j<T) {
 
@@ -45,7 +45,7 @@ public:
                     for (int l = 0; l < m; ++l) {
                         if (k == l) {
                             int j_here=max(j,1);
-            dp[i + 1][j][l] = min(dp[i + 1][j][l], dp[i][j][k] + cost[i][l]);
+            dp[i + 1][j_here][l] = min(dp[i + 1][j_here][l], dp[i][j][k] + cost[i][l]);
                         }
                         else if(j<T){
             dp[i + 1][j + 1][l] = min(dp[i + 1][j + 1][l], dp[i][j][k] + cost[i][l]);
