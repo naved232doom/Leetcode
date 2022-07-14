@@ -5,15 +5,28 @@ public:
         vector<int> ans;
         //3 1 2 3 4 5 
         //
+        map<int,int> mp;
+        // 3->0
+        // 1->1
+        // 2->2
+        //...
+        // 5->5
+        // 100 -> mp.end()
+        // 4 => Xmp.end()
+        // 292929292929493101 =>mp.end()
+        // for(int i=0;i<len;++i){
+        //     mp[nums[i]]=i;
+        // }
+        
         for(int i=0;i<len;++i){
-            for(int j=i+1;j<len;++j){
-                if(nums[i]+nums[j]==target){
-                    ans.push_back(i);
-                    ans.push_back(j);
-                    return ans;
-                }
+           int num_here=nums[i];
+            int need= target-num_here;
+            if(mp.find(need)!=mp.end()){
+                int val= mp[need];
+                return {i,val};
                 
             }
+            mp[nums[i]]=i;
         }
         return {};
     }
