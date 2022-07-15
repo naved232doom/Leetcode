@@ -11,16 +11,13 @@
  */
 class Solution {
 public:
+    map<int,int> inorder_idx;
     TreeNode* dfs(vector<int> &preorder, vector<int> &inorder, int l_in, int r_in, int l_pre) {
 
         if (l_in > r_in or l_pre >= preorder.size()) return nullptr;
 
         int idx_root = -1;
-        for (int i = 0; i < inorder.size(); ++i) {
-            if (inorder[i] == preorder[l_pre]) {
-                idx_root = i;
-            }
-        }
+        idx_root=inorder_idx[preorder[l_pre]];
         assert(idx_root != -1);
         TreeNode* root = new TreeNode(preorder[l_pre]);
 
@@ -35,6 +32,9 @@ public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         // preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
         // bottom-line=> we get lengths of left and right subtree from inorder
+        for(int i=0;i<inorder.size();++i){
+            inorder_idx[inorder[i]]=i;
+        }
         return dfs(preorder, inorder, 0, inorder.size(), 0);
     }
 };
