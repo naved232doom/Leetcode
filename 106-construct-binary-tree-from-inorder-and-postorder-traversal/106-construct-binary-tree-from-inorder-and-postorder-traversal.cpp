@@ -12,7 +12,7 @@
 class Solution {
 public:
     TreeNode* dfs(vector<int> &inorder, vector<int> &postorder, int l_inorder, int r_inorder, int l_postorder) {
-        if (l_inorder > r_inorder or l_postorder >= postorder.size() or l_postorder < 0 ) return NULL;
+        if (l_inorder > r_inorder or l_postorder < 0 ) return NULL;
 
         TreeNode* node = new TreeNode(postorder[l_postorder]);
 
