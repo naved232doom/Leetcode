@@ -27,18 +27,20 @@ public:
         head->next=tail;
         tail->prev=head;
     }
+    void LinkNodes(Node* &P,Node* &N){
+        P->next=N;
+        N->prev=P;
+    }
     void moveNewNodeToHead(int key){
         Node* cur=address[key];
         Node* P=cur->prev;
         Node* N=cur->next;
-        P->next=N;
-        N->prev=P;
+        LinkNodes(P,N);
+        
         N=head->next;
         // add cur node to head
-        head->next=cur;
-        cur->prev=head;
-        cur->next=N;
-        N->prev=cur;
+        LinkNodes(head,cur);
+        LinkNodes(cur,N);
     }
     int get(int key) {
         if(mp.find(key)==mp.end()) return -1;
@@ -59,9 +61,8 @@ public:
         //assert(previous->prev!=nullptr);
         Node* prev2=previous->prev;    
         if(cur_size==max_size){
-            cur_size--;              
-            prev2->next=tail;
-            tail->prev=prev2;
+            cur_size--;       
+            LinkNodes(prev2,tail);
             mp.erase(previous->key);
             delete(previous);
         }
