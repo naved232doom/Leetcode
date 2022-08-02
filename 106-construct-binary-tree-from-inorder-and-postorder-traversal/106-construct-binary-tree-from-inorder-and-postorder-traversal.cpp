@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    TreeNode* dfs(vector<int> &inorder, vector<int> &postorder, int l_inorder, int r_inorder, int l_postorder) {
-        if (l_inorder > r_inorder or l_postorder < 0 ) return NULL;
-
-        TreeNode* node = new TreeNode(postorder[l_postorder]);
-
-        int idx = -1;
-        for (int i = 0; i < inorder.size(); ++i) {
-            if (inorder[i] == postorder[l_postorder]) idx = i;
+    TreeNode* dfs(vector<int>& inorder, vector<int>& postorder,int l_in,int r_in,int l_post){
+        if(l_in > r_in || l_post <0) return nullptr;
+        TreeNode* cur = new TreeNode(postorder[l_post]);
+        
+        int idx=0;
+        for(int i=l_in;i<=r_in;++i){
+            if(inorder[i]==postorder[l_post]) idx=i;
         }
-        int left_cnt = idx - l_inorder + 1;
-        int right_cnt = r_inorder - idx + 1;
-        node->left = dfs(inorder, postorder, l_inorder, idx - 1, l_postorder - right_cnt);
-        node->right = dfs(inorder, postorder, idx + 1, r_inorder, l_postorder-1);
-        return node;
-
+        
+        int count_right=r_in-idx+1;
+        cur->left=dfs(inorder,postorder,l_in,idx-1,l_post-count_right);
+        cur->right=dfs(inorder,postorder,idx+1,r_in,l_post-1);
+        return cur;
+        
     }
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        return dfs(inorder, postorder, 0, inorder.size() - 1, postorder.size() - 1);
+        int n=(int)(inorder.size());
+        return dfs(inorder,postorder,0,n-1,n-1);
+        
     }
 };
