@@ -1,34 +1,30 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int n=(int)(s.length());
-        if(n<=1) return n;
-        //return n;
-        int ans=1;
-        const int MAX=150;
-        vector<int> f(MAX,-1);
-        for(int i=0;i<n;++i){
-            int c_here=s[i];
-            //cout<<c_here<<endl;
+        int n=s.length();
+        int ans=0;
+        int lo=0,hi=0;
+        vector<int> f((int)*max_element(s.begin(),s.end())+1,-1);
+        while(lo<=hi && hi<n){
+           
+            // cout<<"hi :"<<hi<<endl;
+            // cout<<"lo :"<<lo<<endl;
+            bool ok=1;
+            int c_here=s[hi];
             if(f[c_here]!=-1){
                 int idx=f[c_here];
-                f.assign(MAX,-1);
-                for(int j=idx+1;j<=i;++j){
-                    int c2=s[j];
-                    f[c2]=j;
+                while(lo<=idx && lo<=hi){
+                    int c=s[lo];
+                    f[c]=-1;
+                    lo++;
                 }
             }
             else{
-                f[c_here]=i;
+                f[c_here]=hi;
+                ans=max(ans,hi-lo+1);
+                hi++;                
             }
-            int ans_here=0;
-            for(int j=0;j<MAX;++j){
-                if(f[j]==-1) continue;
-                ans_here++;
-            }
-            ans=max(ans,ans_here);
         }
-        
         return ans;
     }
 };
