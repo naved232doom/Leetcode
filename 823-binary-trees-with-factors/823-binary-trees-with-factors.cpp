@@ -11,9 +11,10 @@ public:
             dp[arr[i]]=1;
         }
         for(int i=0;i<n;++i){
-            for(int s=1;s*s<=arr[i];++s){
+            for(int j=0;j<=i;++j){
+                int s=arr[j];
                 if(arr[i]%s!=0) continue;
-                ll ans_here=1;
+                ll ans_here=0;
                 // cout<<"arr[i] "<<arr[i]<<endl;
                 // cout<<"s "<<s<<endl;
                 // cout<<"dp[s] "<<dp[s]<<endl;
@@ -22,10 +23,7 @@ public:
                 //ans_here=max(ans_here,1ll);
                 dp[arr[i]]+=ans_here;
                 dp[arr[i]]%=mod;
-                if(s!=arr[i]/s){
-                    dp[arr[i]]+=ans_here;
-                    dp[arr[i]]%=mod;
-                }
+                
             }
         }
         for(auto &it:dp){
