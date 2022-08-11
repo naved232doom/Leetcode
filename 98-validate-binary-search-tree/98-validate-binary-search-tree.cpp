@@ -10,19 +10,22 @@
  * };
  */
 class Solution {
-    typedef long long ll;
-    const ll inf= 1e18;
-    private:
-    bool dfs(TreeNode* root,ll hi,ll lo){
-        if(root==NULL) return 1;
-        if(root->val >= hi || root->val <=lo) return 0;
-        if(!dfs(root->left,min(hi,(ll)root->val),lo)) return 0;
-        if(!dfs(root->right,hi,max(lo,(ll)root->val))) return 0;
-        
-        return 1;
-    }
 public:
+    typedef long long ll;
+    const ll INF=1e18;
+    void dfs(TreeNode* root,ll x,ll y,bool &ok){
+        if(root==nullptr) return;
+        ll here=root->val;
+        ll x_here=max(x,here);
+        ll y_here=min(y,here);
+        if(!(here<y && here>x)) ok=0;
+        dfs(root->left,x,y_here,ok);
+        dfs(root->right,x_here,y,ok);
+    }
     bool isValidBST(TreeNode* root) {
-        return dfs(root,inf,-inf);
+        ll x=-INF,y=INF;
+        bool ok=1;
+        dfs(root,x,y,ok);
+        return ok;
     }
 };
