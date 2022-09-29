@@ -55,6 +55,10 @@ public:
         
         map<char,int> mp;
         int cnt=0;
+        sort(s.begin(),s.end(),[](string &a,string &b){
+            return a[1]=='='&&b[1]!='=';
+            return false;
+        });
         for(auto &c:s){
             if(mp.find(c[0])==mp.end()){
                 mp[c[0]]=cnt++;
@@ -68,13 +72,10 @@ public:
         for(auto &c:s){
             if(c[1]=='=')
             dsu.merge(mp[c[0]],mp[c.back()]);
-            
-        }
-        for(auto &c:s){
-            if(c[1]!='='){
+            else
                 if(dsu.find(mp[c[0]]) == dsu.find(mp[c.back()])) return false;
-            }
         }
+        
         return true;
     }
 };
